@@ -1,1 +1,1 @@
-A project manager for devlopment environment.
+A project manager for devlopment environment on windows.
