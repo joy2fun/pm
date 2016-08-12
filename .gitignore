@@ -1,0 +1,5 @@
+settings.yml
+.vagrant
+.idea
+*.log
+*.gz
