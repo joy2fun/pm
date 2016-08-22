@@ -2,7 +2,7 @@
 # vi: set ft=ruby :
 require 'yaml'
 
-settings = YAML.load_file 'settings.yml'
+settings = YAML.load_file File.dirname(__FILE__) + '/settings.yml'
 
 # All Vagrant configuration is done below. The "2" in Vagrant.configure
 # configures the configuration version (we support older styles for
