@@ -5,7 +5,7 @@ for %%e in (%PATHEXT%) do for %%i in (git.exe) do (
 	SET filename=%%~$PATH:i
 	set gitbash="!filename:~0,-12!\bin\bash.exe"
 	if exist "!gitbash!" (
-		"!gitbash!" --login -c "cd /d/projectinit && vagrant halt"
+		"!gitbash!" --login -c "cd /d/pm && vagrant halt"
 		goto :eof
 	)
 )

@@ -1,4 +1,4 @@
-# Devlopment environment on Windows
+# Development environment on Windows
 
 # Requirements
  - Git for Windows (bash included)
@@ -7,7 +7,7 @@
 
 # Installation
 
-Luanch Git Bash and run the following command:
+Launch Git Bash and run the following command:
 
 ```sh
 sh -c "$(curl -fsSL https://raw.githubusercontent.com/joy2fun/pm/master/sh/init.sh)"
