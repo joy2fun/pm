@@ -109,7 +109,7 @@ update)
     git --git-dir=$pmdir/.git --work-tree=$pmdir pull -q
     ;;
 pull)
-    projectsGit "pull -n" "$(projectsGitArgs "$*")"
+    projectsGit "pull" "$(projectsGitArgs "$*")"
     ;;
 co|checkout)
     branch=$(echo $*|cut -s -d" " -f2)
