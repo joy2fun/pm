@@ -57,6 +57,8 @@ Vagrant.configure("2") do |config|
     #vb.gui = true
     # Customize the amount of memory on the VM:
     vb.memory = "768"
+    #vb.cpus = "2"
+    vb.customize ["modifyvm", :id, "--ioapic", "on"]
   end
 
   config.ssh.username = "vagrant"
