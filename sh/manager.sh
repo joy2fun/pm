@@ -51,8 +51,10 @@ tryMkdirLog() {
 }
 
 projectsGit() {
-    echo -e "${RED}git $1${NC}"
-    projects=${2:-$(allProjectsPath)}
+    local cmd=$(echo $*|cut -s -d":" -f1)
+    local dir=$(echo $*|cut -s -d":" -f2)
+    local projects=${dir:-$(allProjectsPath)}
+    echo -e "${RED}git ${cmd}${NC}"
 
     for project in $projects
     do
@@ -61,7 +63,7 @@ projectsGit() {
         [ -d $projectRoot/$project/.git ] && {
             hr
             echo -e "${YELLOW}$project${NC} (${GREEN}$(git --git-dir=$projectRoot/$project/.git --work-tree=$projectRoot/$project rev-parse --abbrev-ref HEAD)${NC})"
-            git --git-dir=$projectRoot/$project/.git --work-tree=$projectRoot/$project $1
+            git --git-dir=$projectRoot/$project/.git --work-tree=$projectRoot/$project $cmd
         }
         tryMkdirLog $project
     done
@@ -109,20 +111,20 @@ update)
     git --git-dir=$pmdir/.git --work-tree=$pmdir pull -q
     ;;
 pull)
-    projectsGit "pull" "$(projectsGitArgs "$*")"
+    projectsGit pull : $(projectsGitArgs "$*")
     ;;
 co|checkout)
     branch=$(echo $*|cut -s -d" " -f2)
-    projectsGit "checkout -q $branch" "$(projectsGitArgs "$*" 3)"
+    projectsGit checkout $branch : $(projectsGitArgs "$*" 3)
     ;;
 g|git)
-    projectsGit "$2" "$3"
+    projectsGit $(projectsGitArgs "$*")
     ;;
 st|status)
-    projectsGit "status -s" "$(projectsGitArgs "$*")"
+    projectsGit status -s : $(projectsGitArgs "$*")
     ;;
 clean)
-    projectsGit "clean -di -e log" "$(projectsGitArgs "$*")"
+    projectsGit clean -di -e log : $(projectsGitArgs "$*")
     ;;
 log)
     logfile=$pmdir/logs/php_errors.log
