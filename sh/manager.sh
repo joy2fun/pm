@@ -44,12 +44,6 @@ tryClone() {
     }
 }
 
-tryMkdirLog() {
-    [ ! -d "$projectRoot/$1/log" ] && {
-        mkdir $projectRoot/$1/log
-    }
-}
-
 projectsGit() {
     local cmd=$(echo $*|cut -s -d":" -f1)
     local dir=$(echo $*|cut -s -d":" -f2)
@@ -65,7 +59,6 @@ projectsGit() {
             echo -e "${YELLOW}$project${NC} (${GREEN}$(git --git-dir=$projectRoot/$project/.git --work-tree=$projectRoot/$project rev-parse --abbrev-ref HEAD)${NC})"
             git --git-dir=$projectRoot/$project/.git --work-tree=$projectRoot/$project $cmd
         }
-        tryMkdirLog $project
     done
 }
 
