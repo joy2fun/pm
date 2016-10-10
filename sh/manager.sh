@@ -45,8 +45,12 @@ tryClone() {
 }
 
 projectsGit() {
-    local cmd=$(echo $*|cut -s -d":" -f1)
-    local dir=$(echo $*|cut -s -d":" -f2)
+    local cmd=$(echo $*|cut -s -d"@" -f1)
+    local dir=$(echo $*|cut -s -d"@" -f2)
+
+    # in case of missing @
+    cmd=${cmd:-$*}
+
     local projects=${dir:-$(allProjectsPath)}
     echo -e "${RED}git ${cmd}${NC}"
 
@@ -104,20 +108,20 @@ update)
     git --git-dir=$pmdir/.git --work-tree=$pmdir pull -q
     ;;
 pull)
-    projectsGit pull : $(projectsGitArgs "$*")
+    projectsGit pull @ $(projectsGitArgs "$*")
     ;;
 co|checkout)
     branch=$(echo $*|cut -s -d" " -f2)
-    projectsGit checkout $branch : $(projectsGitArgs "$*" 3)
+    projectsGit checkout $branch @ $(projectsGitArgs "$*" 3)
     ;;
 g|git)
     projectsGit $(projectsGitArgs "$*")
     ;;
 st|status)
-    projectsGit status -s : $(projectsGitArgs "$*")
+    projectsGit status -s @ $(projectsGitArgs "$*")
     ;;
 clean)
-    projectsGit clean -di -e log : $(projectsGitArgs "$*")
+    projectsGit clean -di -e log @ $(projectsGitArgs "$*")
     ;;
 log)
     logfile=$pmdir/logs/php_errors.log
